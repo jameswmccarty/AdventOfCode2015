@@ -46,10 +46,19 @@ What is the number of the real Aunt Sue?
 
 """
 
+def eq(x,y):
+	return x == y
+
+def gt(x,y):
+	return x > y
+
+def lt(x,y):
+	return x < y
+
+
 class Sue:
 
-
-	options = [ "children", "cats", "samoyeds", "pomeranians", "akitas", "vizslas", "goldfish", "trees", "cars", "perfumes" ]
+	options = { "children" : eq, "cats" : gt, "samoyeds" : eq, "pomeranians" : lt, "akitas" : eq, "vizslas" : eq, "goldfish" : lt, "trees" : gt, "cars" : eq, "perfumes" : eq }
 
 	def __init__(self, *argv, **kwargs):
 		for key, value in kwargs.iteritems():
@@ -61,9 +70,16 @@ class Sue:
 			if hasattr(self, item) and getattr(self, item) != items[item]:
 				return False
 		return True
-
+		
+	def match2(self, items):
+		for item in items:
+			if hasattr(self, item) and not self.options[item](getattr(self, item), items[item]):
+				return False
+		return True
 
 if __name__ == "__main__":
+
+	# Part 1 Solution
 
 	all_sue = []
 
@@ -81,5 +97,9 @@ if __name__ == "__main__":
 	for idx, sue in enumerate(all_sue):
 		if sue.match(unk_sue):
 			print idx + 1
-	
 			
+	# Part 2 Solution
+
+	for idx, sue in enumerate(all_sue):
+		if sue.match2(unk_sue):
+			print idx + 1
