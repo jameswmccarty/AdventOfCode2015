@@ -76,3 +76,12 @@ if __name__ == "__main__":
 
 	print regs["b"]
 	
+	# Part 2 Solution
+	
+	regs = { "a" : 1, "b" : 0, "ip" : -1 }
+	
+	while regs["ip"] < len(program)-1:
+		regs["ip"] += 1
+		op[program[regs["ip"]][0]](program[regs["ip"]][1], program[regs["ip"]][2])
+
+	print regs["b"]
